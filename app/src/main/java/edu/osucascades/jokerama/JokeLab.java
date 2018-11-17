@@ -20,6 +20,14 @@ public class JokeLab {
 
     private JokeLab(Context context) {
         mJokes = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            Joke joke = new Joke();
+            joke.setTitle("Joke #" + i);
+            joke.setLinesOfJoke(new String[] {
+                "Knock Knock", "Who's there?", "Someone",
+                "Someone who", "Something is up"
+            });
+        }
     }
 
     public List<Joke> getJokes() {
