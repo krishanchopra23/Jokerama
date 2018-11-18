@@ -60,4 +60,8 @@ public class JokeLab {
         }
         return mNumberOfJokesViewed;
     }
+
+    public void resetNumberOfJokesViewed() {
+        mNumberOfJokesViewed = 0;
+    }
 }
