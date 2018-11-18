@@ -10,6 +10,8 @@ public class JokeLab {
 
     private static JokeLab sJokeLab;
     private List<Joke> mJokes;
+    private int mNumberOfJokes;
+    private int mNumberOfJokesViewed;
 
     public static JokeLab get(Context context) {
         if (sJokeLab == null) {
@@ -23,9 +25,9 @@ public class JokeLab {
         for (int i = 0; i < 20; i++) {
             Joke joke = new Joke();
             joke.setTitle("Joke #" + i);
-            joke.setLinesOfJoke(new String[] {
-                "Knock Knock", "Who's there?", "Someone",
-                "Someone who", "Something is up"
+            joke.setLinesOfJoke(new String[]{
+                    "Knock Knock", "Who's there?", "Someone",
+                    "Someone who", "Something is up"
             });
             mJokes.add(joke);
         }
@@ -42,5 +44,20 @@ public class JokeLab {
             }
         }
         return null;
+    }
+
+    //create getters for joke totals and viewed totals
+    public int getNumberOfJokes() {
+        return mJokes.size();
+    }
+
+    public int getNumberOfJokesViewed() {
+        mNumberOfJokesViewed = 0;
+        for (Joke joke : mJokes) {
+            if (joke.isViewed()) {
+                mNumberOfJokesViewed++;
+            }
+        }
+        return mNumberOfJokesViewed;
     }
 }
