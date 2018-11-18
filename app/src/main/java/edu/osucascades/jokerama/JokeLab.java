@@ -27,6 +27,7 @@ public class JokeLab {
                 "Knock Knock", "Who's there?", "Someone",
                 "Someone who", "Something is up"
             });
+            mJokes.add(joke);
         }
     }
 

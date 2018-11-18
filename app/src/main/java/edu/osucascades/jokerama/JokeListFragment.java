@@ -1,5 +1,6 @@
 package edu.osucascades.jokerama;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,18 +27,25 @@ public class JokeListFragment extends Fragment {
         return view;
     }
 
-    private class JokeHolder extends RecyclerView.ViewHolder {
+    private class JokeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private Joke mJoke;
 
         public JokeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_joke, parent, false));
+            itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.joke_title);
         }
         //add a bind
         public void bind(Joke joke) {
             mJoke = joke;
             mTitleTextView.setText(mJoke.getTitle());
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = JokeActivity.newIntent(getActivity(), mJoke.getId());
+            startActivity(intent);
         }
     }
     //set an adapter
