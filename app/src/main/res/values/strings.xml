@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Jokerama</string>
     <string name="reset_viewed_jokes">Reset Jokes Viewed</string>
+    <string name="reset_dialog_title">Reset all Jokes?</string>
 </resources>

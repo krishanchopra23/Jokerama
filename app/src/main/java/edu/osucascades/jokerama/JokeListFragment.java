@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ public class JokeListFragment extends Fragment {
 
     private RecyclerView mJokeRecyclerView;
     private JokeAdapter mAdapter;
+    private static final String DIALOG_RESET = "DialogReset";
+
     //receive menu callbacks
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,10 @@ public class JokeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.reset_jokes_viewed:
-                Toast.makeText(getActivity(), "Reset jokes viewed", Toast.LENGTH_SHORT).show();
+                //show the dialog fragment
+                FragmentManager manager = getFragmentManager();
+                ResetJokeFragment dialog = new ResetJokeFragment();
+                dialog.show(manager, DIALOG_RESET);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
