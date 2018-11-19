@@ -1,5 +1,6 @@
 package edu.osucascades.jokerama;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ public class JokeListFragment extends Fragment {
     private RecyclerView mJokeRecyclerView;
     private JokeAdapter mAdapter;
     private static final String DIALOG_RESET = "DialogReset";
+    private static final int REQUEST_DECIDE = 0;
 
     //receive menu callbacks
     @Override
@@ -38,6 +40,19 @@ public class JokeListFragment extends Fragment {
         mJokeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
+    }
+    //respond to the dialog
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_DECIDE) {
+            JokeLab jokeLab = JokeLab.getInstance(getActivity());
+            jokeLab.resetNumberOfJokesViewed();
+            updateUI();
+        }
     }
 
     @Override
@@ -59,6 +74,7 @@ public class JokeListFragment extends Fragment {
                 //show the dialog fragment
                 FragmentManager manager = getFragmentManager();
                 ResetJokeFragment dialog = new ResetJokeFragment();
+                dialog.setTargetFragment(JokeListFragment.this, REQUEST_DECIDE);
                 dialog.show(manager, DIALOG_RESET);
                 return true;
             default:
@@ -93,7 +109,7 @@ public class JokeListFragment extends Fragment {
     }
     //set an adapter
     private void updateUI() {
-        JokeLab jokeLab = JokeLab.get(getActivity());
+        JokeLab jokeLab = JokeLab.getInstance(getActivity());
         List<Joke> jokes = jokeLab.getJokes();
 
         if (mAdapter == null) {

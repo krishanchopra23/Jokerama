@@ -21,7 +21,7 @@ public class JokeFragment extends Fragment {
         //retrieve the extra and fetch the joke
         UUID jokeId = (UUID) getActivity().getIntent()
                 .getSerializableExtra(JokeActivity.EXTRA_JOKE_ID);
-        mJoke = JokeLab.get(getActivity()).getJoke(jokeId);
+        mJoke = JokeLab.getInstance(getActivity()).getJoke(jokeId);
     }
 
     @Override

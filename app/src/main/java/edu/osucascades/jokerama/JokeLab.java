@@ -13,7 +13,7 @@ public class JokeLab {
     private int mNumberOfJokes;
     private int mNumberOfJokesViewed;
 
-    public static JokeLab get(Context context) {
+    public static JokeLab getInstance(Context context) {
         if (sJokeLab == null) {
             sJokeLab = new JokeLab(context);
         }
@@ -62,6 +62,9 @@ public class JokeLab {
     }
 
     public void resetNumberOfJokesViewed() {
+        for (Joke joke : mJokes) {
+            joke.setViewed(false);
+        }
         mNumberOfJokesViewed = 0;
     }
 }
