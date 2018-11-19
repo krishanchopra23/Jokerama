@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,6 +82,15 @@ public class JokeListFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+    //set the toolbar's subtitle
+    private void updateSubtitle() {
+        JokeLab jokeLab = JokeLab.getInstance(getActivity());
+        int jokeCount = jokeLab.getJokes().size();
+        int jokesViewed = jokeLab.getNumberOfJokesViewed();
+        String subtitle = getString(R.string.subtitle_format, jokeCount, jokesViewed);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
+    }
 
     private class JokeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
@@ -95,10 +105,6 @@ public class JokeListFragment extends Fragment {
         public void bind(Joke joke) {
             mJoke = joke;
             mTitleTextView.setText(mJoke.getTitle());
-            //set the background color black when viewed
-            if (mJoke.isViewed()) {
-                mTitleTextView.setBackgroundColor(0);
-            }
         }
 
         @Override
@@ -118,6 +124,8 @@ public class JokeListFragment extends Fragment {
         } else {
             mAdapter.notifyDataSetChanged();
         }
+        //update the subtitle
+        updateSubtitle();
     }
 
     private class JokeAdapter extends RecyclerView.Adapter<JokeHolder> {
@@ -138,6 +146,10 @@ public class JokeListFragment extends Fragment {
         public void onBindViewHolder(JokeHolder holder, int position) {
             Joke joke = mJokes.get(position);
             holder.bind(joke);
+            //set the background color black when viewed
+            if (joke.isViewed()) {
+                holder.itemView.setBackgroundColor(0);
+            }
         }
 
         @Override

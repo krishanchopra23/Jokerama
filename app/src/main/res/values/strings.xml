@@ -2,4 +2,5 @@
     <string name="app_name">Jokerama</string>
     <string name="reset_viewed_jokes">Reset Jokes Viewed</string>
     <string name="reset_dialog_title">Reset all Jokes?</string>
+    <string name="subtitle_format">%1$d Jokes, %2$d Completed</string>
 </resources>
